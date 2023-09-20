@@ -1,0 +1,20 @@
+<%- include('../partials/head.ejs') %>
+
+  <body>
+    <%- include('../partials/navbar.ejs') %>
+      <div class="container mt-5">
+        <div class="card">
+          <div class="card-header">Edição de Categoria</div>
+          <div class="card-body">
+            <form action="/categories/update" method="post">
+              <input type="text" name="title" class="form-control" value="<%= categoria.title %>">
+              <input type="hidden" name="id" class="form-control" value="<%= categoria.id %>">
+              <button type="submit" class="btn btn-primary my-3">Atualizar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <%- include('../partials/configParaBootstrap.ejs') %>
+  </body>
+
+  </html>
