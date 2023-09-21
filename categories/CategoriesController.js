@@ -60,15 +60,13 @@ router.get('/admin/categories/edit/:id', (req, res) => {
     } else {
       res.redirect('/admin/categories');
     }
-  })
-
-
+  }) 
 });
 
 router.post('/categories/update', (req, res) => {
   const { id, title } = req.body;
   Category.update(
-    { title: title },
+    { title: title, slug: slugify(title) },
     { where: { id: id } })
     .then(() => res.redirect('/admin/categories'))
 

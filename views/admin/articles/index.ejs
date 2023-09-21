@@ -1,0 +1,72 @@
+<%- include('../partials/head.ejs') %>
+
+  <body>
+    <%- include('../partials/navbar.ejs') %>
+      <hr>
+      <h2 class="container col-8">Articles</h2>
+      <div class="container col-8">
+
+        <a class="btn btn-success" href="/admin/articles/new"> Novo Artigo</a>
+
+        <table class="table my-3 ">
+          <thead class="table-dark text-center">
+            <tr>
+              <th>id</th>
+              <th>title</th>
+              <th>slug</th>
+              <th>Categoria</th>
+              <th>acoes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% artigos.forEach((e)=> {
+
+              %>
+              <tr scope="row">
+                <td>
+                  <%= e.id %>
+                </td>
+                <td>
+                  <%= e.title %>
+                </td>
+                <td>
+                  <%= e.slug %>
+                </td>
+                <td>
+                  <%= e.categoryId %>
+                </td>
+                <td class="d-flex justify-content-evenly">
+
+                  <a href="/admin/articles/edit/<%= e.id %>" class="btn btn-warning" style="width: 100px">editar</a>
+
+                  <form action="/admin/articles/delete" method="post">
+                    <input type="hidden" name="id" value="<%= e.id %>">
+                    <button type="submit" class="btn btn-danger" style="width: 100px;">deletar</button>
+                  </form>
+                </td>
+              </tr>
+
+              <% }) %>
+
+
+          </tbody>
+        </table>
+      </div>
+
+
+
+      <%- include('../partials/configParaBootstrap.ejs') %>
+
+        <script>
+          const confirmarDelecao = (event, form) => {
+            event.preventDefault();
+            let decision = confirm('quer msm deletar?')
+            if (decision) {
+              form.submit();
+            }
+          }
+        </script>
+
+  </body>
+
+  </html>

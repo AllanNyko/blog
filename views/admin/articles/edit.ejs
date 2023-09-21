@@ -1,0 +1,41 @@
+<%- include('../partials/head.ejs') %>
+
+  <body>
+    <%- include('../partials/navbar.ejs') %>
+      <div class="container mt-5">
+        <div class="card">
+          <div class="card-header">Edição de Artigo</div>
+          <div class="card-body">
+
+            <form action="/admin/articles/update" method="post">
+              <input type="hidden" name="id" class="form-control" value="<%= article.id %>">
+              <textarea name="body" id="body" class="form-control"><%= article.body %></textarea>
+              <button type="submit" class="btn btn-primary my-3">Atualizar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <%- include('../partials/configParaBootstrap.ejs') %>
+
+        <script src="/tinymce/tinymce.min.js"></script>
+        <script>
+          tinymce.init({
+            language: 'pt_BR',
+            selector: 'textarea',
+            plugins: 'advlist autolink insertdatetime media save table link image lists preview searchreplace wordcount',
+            promotion: false,
+          });
+        </script>
+
+  </body>
+  <script src="/tinymce/tinymce.min.js"></script>
+  <script>
+    tinymce.init({
+      language: 'pt_BR',
+      selector: 'textarea',
+      plugins: 'advlist autolink insertdatetime media save table link image lists preview searchreplace wordcount',
+      promotion: false
+    });
+  </script>
+
+  </html>
