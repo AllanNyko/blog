@@ -7,7 +7,7 @@ const slugify = require('slugify');
 
 router.get('/admin/categories', async (req, res) => {
   const data = await Category.findAll({ raw: true });
-  console.log(data);
+ 
   res.render('admin/categories/index', { data: data });
 });
 

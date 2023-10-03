@@ -1,0 +1,23 @@
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/navbar.ejs') %>
+
+      <div class="container d-flex mt-5 flex-wrap justify-content-center">
+        <% articles.forEach(a=> { %>
+          <div class="card m-2 col-5">
+            <div class="card-header">Cadastro de Categoria</div>
+            <div class="card-body ">
+              <h3>
+                <%= a.title %>
+              </h3>
+              <a href="/<%= a.slug %>" class="btn btn-primary my-3">Saiba mais</a>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+
+      <%- include('./partials/configParaBootstrap.ejs') %>
+  </body>
+
+  </html>

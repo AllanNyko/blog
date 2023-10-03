@@ -1,72 +1,97 @@
-<%- include('../partials/head.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
 
-  <body>
-    <%- include('../partials/navbar.ejs') %>
-      <hr>
-      <h2 class="container col-8">Articles</h2>
-      <div class="container col-8">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
 
-        <a class="btn btn-success" href="/admin/articles/new"> Novo Artigo</a>
-
-        <table class="table my-3 ">
-          <thead class="table-dark text-center">
-            <tr>
-              <th>id</th>
-              <th>title</th>
-              <th>slug</th>
-              <th>Categoria</th>
-              <th>acoes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% artigos.forEach((e)=> {
-
-              %>
-              <tr scope="row">
-                <td>
-                  <%= e.id %>
-                </td>
-                <td>
-                  <%= e.title %>
-                </td>
-                <td>
-                  <%= e.slug %>
-                </td>
-                <td>
-                  <%= e.categoryId %>
-                </td>
-                <td class="d-flex justify-content-evenly">
-
-                  <a href="/admin/articles/edit/<%= e.id %>" class="btn btn-warning" style="width: 100px">editar</a>
-
-                  <form action="/admin/articles/delete" method="post">
-                    <input type="hidden" name="id" value="<%= e.id %>">
-                    <button type="submit" class="btn btn-danger" style="width: 100px;">deletar</button>
-                  </form>
-                </td>
-              </tr>
-
-              <% }) %>
-
-
-          </tbody>
-        </table>
+<body style="min-width: 300px;">
+  <nav class="navbar navbar-expand-md bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">BLOG</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/admin/categories">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/admin/articles">Artigos</a>
+          </li>
       </div>
+    </div>
+  </nav>
+  <div>
+    <a href="/admin/articles/new" class="btn btn-info ms-2 my-2">new article</a>
+  </div>
+
+  <div class=" d-flex justify-content-center bg-warning">
+    <table class="table">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">ID</th>
+          <th scope="col">TITULO</th>
+          <th scope="col">SLUG</th>
+          <th scope="col">CATEG</th>
+          <th scope="col">AÇÃO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% artigos.forEach(article=> { %>
+          <tr class="text-center">
+            <th scope="row">
+              <%= article.id %>
+            </th>
+            <td>
+              <%= article.title %>
+            </td>
+            <td>
+              <%= article.slug %>
+            </td>
+            <td>
+              <%= article.category['title'] %>
+            </td>
+            <td class="d-flex justify-content-around">
+              <a href="/admin/articles/edit/<%= article.id %>" class="btn btn-warning" style="width: 76px;">editar</a>
+              <form action="/admin/articles/delete" method="post" onsubmit="return confirmarDelecao(event, this);">
+                <input type="hidden" name="id" value="<%= article.id %>">
+                <button type="submit" class="btn btn-danger" style="width: 76px;">deletar</button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+
+      </tbody>
+    </table>
+  </div>
+
+
+  <script>
+    const confirmarDelecao = (event, form) => {
+      event.preventDefault();
+      let decision = confirm('Quer mesmo deletar?');
+      if (decision) {
+        form.submit();
+      }
+    }
+  </script>
 
 
 
-      <%- include('../partials/configParaBootstrap.ejs') %>
 
-        <script>
-          const confirmarDelecao = (event, form) => {
-            event.preventDefault();
-            let decision = confirm('quer msm deletar?')
-            if (decision) {
-              form.submit();
-            }
-          }
-        </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+</body>
 
-  </body>
-
-  </html>
+</html>

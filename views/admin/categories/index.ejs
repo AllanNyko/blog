@@ -1,57 +1,65 @@
-<%- include('../partials/head.ejs') %>
+<%- include('../../partials/head.ejs') %>
 
   <body>
-    <%- include('../partials/navbar.ejs') %>
+    <%- include('../../partials/navbar.ejs') %>
       <hr>
-      <h2 class="container col-8">Categorias</h2>
-      <div class="container col-8">
+      <section>
+        <div class="bg-warning">
+          <div class="bg-info fs-3 ">Categorias</div>
+          <a class="btn btn-success" href="/admin/categories/new"> ADD +</a>
 
-        <a class="btn btn-success" href="/admin/categories/new"> ADD +</a>
+        </div>
+      </section>
+      <section>
 
-        <table class="table my-3 ">
-          <thead class="table-dark text-center">
-            <tr>
-              <th>id</th>
-              <th>title</th>
-              <th>slug</th>
-              <th class="bg-success">acoes</th>
+      </section>
+
+
+
+      <table class="table my-3 ">
+        <thead class="table-dark text-center">
+          <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>slug</th>
+            <th class="bg-success">acoes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.forEach((e,i)=> {
+
+            %>
+            <tr scope="row">
+              <td>
+                <%= e.id %>
+              </td>
+              <td>
+                <%= e.title %>
+              </td>
+              <td>
+                <%= e.slug %>
+              </td>
+              <td class="d-flex justify-content-evenly">
+
+                <a href="/admin/categories/edit/<%= e.id %>" class="btn btn-warning" style="width: 100px;">editar</a>
+
+                <form action="/categories/delete" method="post" onsubmit="confirmarDelecao(event,this)">
+                  <input type="hidden" name="id" value="<%= e.id %>">
+                  <button type="submit" class="btn btn-danger" style="width: 100px;">deletar</button>
+                </form>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <% data.forEach((e,i)=> {
 
-              %>
-              <tr scope="row">
-                <td>
-                  <%= e.id %>
-                </td>
-                <td>
-                  <%= e.title %>
-                </td>
-                <td>
-                  <%= e.slug %>
-                </td>
-                <td class="d-flex justify-content-evenly">
-
-                  <a href="/admin/categories/edit/<%= e.id %>" class="btn btn-warning" style="width: 100px;">editar</a>
-
-                  <form action="/categories/delete" method="post" onsubmit="confirmarDelecao(event,this)">
-                    <input type="hidden" name="id" value="<%= e.id %>">
-                    <button type="submit" class="btn btn-danger" style="width: 100px;">deletar</button>
-                  </form>
-                </td>
-              </tr>
-
-              <% }) %>
+            <% }) %>
 
 
-          </tbody>
-        </table>
+        </tbody>
+      </table>
       </div>
 
 
 
-      <%- include('../partials/configParaBootstrap.ejs') %>
+      <%- include('../../partials/configParaBootstrap.ejs') %>
 
         <script>
           function confirmarDelecao(event, form) {
